@@ -6,13 +6,15 @@ Created on Mon Oct 22 11:37:11 2018
 """
 
 
-from tfDataPreProcessor import getData
-from tfModel import model
+from tfDataPreProcessor import *
+from tfModel import *
 
 if __name__ == '__main__':
-    X_train, Y_train, X_test, Y_test = getData()
+    model = tfModel(None)
+    dataPreprocessor = tfDataPreProcessor({'inputFileName': 'breast-cancer-wisconsin.csv'})    
+    X_train, Y_train, X_test, Y_test = dataPreprocessor.getData()
     
     # network_shape - first one should match with input parameters
-    parameters, costs = model(X_train, Y_train, X_test, Y_test, network_shape = [9,8,8,4,4,1])    
-    print('parameters: ', parameters)
+    parameters, costs = model.model(X_train, Y_train, X_test, Y_test, network_shape = [9,8,8,4,4,1])    
+    #print('parameters: ', parameters)
     

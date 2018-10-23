@@ -6,7 +6,7 @@ Here are the steps:
       Randomize input data and randomize batches at the time of traing is required to avoid overfit the data.
       Make sure the matrix size matches with the network.
 
-* Train and evaluate model to see how best it perform testr data
+* Train and evaluate model to see how best it performs on test data
 * Save model and weights
 * Retrive model and evaluate with new data
 

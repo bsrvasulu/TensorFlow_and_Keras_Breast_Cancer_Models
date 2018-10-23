@@ -81,60 +81,64 @@ plt.legend(['Train', 'Test'], loc='upper left')
 plt.show()
 
 '''
-
-def model_breastCancer(input_shape, network_shape):
-    #define seqence model
-    model = Sequential()
-    model.add(Dense(network_shape[0], activation='relu', input_shape=(input_shape, )))   
-    for i in range(1, len(network_shape)):
-        model.add(Dense(network_shape[i], activation='relu'))
-    model.add(Dense(1, activation='sigmoid'))
-    return model
-
-def fit_model(X_train, Y_train, X_test, Y_test, input_shape, network_shape, batch_size=32, epochs=200):
-    # Create Model
-    cancerModel = model_breastCancer(input_shape, network_shape)
-    #cancerModel.compile(optimizer='adam',
-    #          loss='mean_squared_error',
-    #          metrics=['accuracy'])
-    cancerModel.compile(optimizer='rmsprop',
-              loss='binary_crossentropy',
-              metrics=['accuracy'])
-    cancerModel.fit(X_train, Y_train, epochs, batch_size)
+class kerasModel:
+    def __init__(self,params):
+        #assign parameters
+        self.params = params    
     
-    # Evaluate
-    preds = cancerModel.evaluate(x = X_test, y = Y_test)
-    print()
-    print("preds = " + str(preds))
-    print("Loss = " + str(preds[0]))
-    print("Accuracy = " + str(preds[1]))
+    def model_breastCancer(self, input_shape, network_shape):
+        #define seqence model
+        model = Sequential()
+        model.add(Dense(network_shape[0], activation='relu', input_shape=(input_shape, )))   
+        for i in range(1, len(network_shape)):
+            model.add(Dense(network_shape[i], activation='relu'))
+        model.add(Dense(1, activation='sigmoid'))
+        return model
     
-    # save model
-    # serialize model to JSON
-    model_json = cancerModel.to_json()
-    with open("./model_final/cancerModel.json", "w") as json_file:
-        json_file.write(model_json)
-    # serialize weights to HDF5
-    cancerModel.save_weights("./model_final/cancerModel.h5")
-    print("Saved model to disk")
-
-def retrieve_model(X_test, Y_test):
-    # load json and create model
-    json_file = open('./model_final/cancerModel.json', 'r')
-    loaded_model_json = json_file.read()
-    json_file.close()
-    loaded_model = model_from_json(loaded_model_json)
-    # load weights into new model
-    loaded_model.load_weights("./model_final/cancerModel.h5")
-    print("Loaded model from disk")
+    def fit_model(self, X_train, Y_train, X_test, Y_test, input_shape, network_shape, batch_size=32, epochs=200):
+        # Create Model
+        cancerModel = self.model_breastCancer(input_shape, network_shape)
+        #cancerModel.compile(optimizer='adam',
+        #          loss='mean_squared_error',
+        #          metrics=['accuracy'])
+        cancerModel.compile(optimizer='rmsprop',
+                  loss='binary_crossentropy',
+                  metrics=['accuracy'])
+        cancerModel.fit(X_train, Y_train, epochs, batch_size)
+        
+        # Evaluate
+        preds = cancerModel.evaluate(x = X_test, y = Y_test)
+        print()
+        print("preds = " + str(preds))
+        print("Loss = " + str(preds[0]))
+        print("Accuracy = " + str(preds[1]))
+        
+        # save model
+        # serialize model to JSON
+        model_json = cancerModel.to_json()
+        with open("./model_final/cancerModel.json", "w") as json_file:
+            json_file.write(model_json)
+        # serialize weights to HDF5
+        cancerModel.save_weights("./model_final/cancerModel.h5")
+        print("Saved model to disk")
     
-    # compile
-    #loaded_model.compile('adam', loss='mean_squared_error', metrics=['accuracy'])
-    loaded_model.compile('rmsprop', loss='binary_crossentropy', metrics=['accuracy'])
-    
-    # Evaluate
-    preds = loaded_model.evaluate(x = X_test, y = Y_test)
-    print()
-    print("preds = " + str(preds))
-    print("Loss = " + str(preds[0]))
-    print("Accuracy = " + str(preds[1]))
+    def retrieve_model(self, X_test, Y_test):
+        # load json and create model
+        json_file = open('./model_final/cancerModel.json', 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        loaded_model = model_from_json(loaded_model_json)
+        # load weights into new model
+        loaded_model.load_weights("./model_final/cancerModel.h5")
+        print("Loaded model from disk")
+        
+        # compile
+        #loaded_model.compile('adam', loss='mean_squared_error', metrics=['accuracy'])
+        loaded_model.compile('rmsprop', loss='binary_crossentropy', metrics=['accuracy'])
+        
+        # Evaluate
+        preds = loaded_model.evaluate(x = X_test, y = Y_test)
+        print()
+        print("preds = " + str(preds))
+        print("Loss = " + str(preds[0]))
+        print("Accuracy = " + str(preds[1]))

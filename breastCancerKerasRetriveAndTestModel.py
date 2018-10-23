@@ -6,14 +6,16 @@ Created on Mon Oct 22 11:23:01 2018
 """
 
 
-from dataKerasPreProcessor import getData
-from kerasModel import retrieve_model
+from dataKerasPreProcessor import *
+from kerasModel import *
 
 ## MAIN APP CALL
 if __name__ == '__main__':
-    X_train, Y_train, X_test, Y_test = getData()
+    dataPreprocessor = dataKerasPreProcessor({'inputFileName': 'breast-cancer-wisconsin.csv'})
+    X_train, Y_train, X_test, Y_test = dataPreprocessor.getData()
     print('------------------------------------------------------------------')
     print('Test started')
-    retrieve_model(X_test, Y_test)   
+    kmodel = kerasModel(None)
+    kmodel.retrieve_model(X_test, Y_test)   
     print('Test completed')
     print('------------------------------------------------------------------')    

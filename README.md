@@ -46,5 +46,8 @@ ReLu non linear activatation has used for input and hidden layers.
 ## DNN Network
 ![Image](/images/nnNetwork.jpg)
 
+### Challenges
 
-Note: Train the models using the data published by UCI - Machine Learning Repositsry (Breast Cancer Wisconsin (Diagnostic) Data Set). [Dataset](http://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29)
+      Current model unable to handle if input misses any feature. How to handle this situation? 
+      
+      Note: Train the models using the data published by UCI - Machine Learning Repositsry (Breast Cancer Wisconsin (Diagnostic) Data Set). [Dataset](http://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29)
